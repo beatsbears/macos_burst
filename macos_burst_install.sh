@@ -111,10 +111,10 @@ curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releas
 mkdir burstcoin
 unzip burstcoin.zip -d burstcoin
 rm burstcoin.zip
-echo "nxt.dbUrl=jdbc:mariadb://localhost:3306/burstwallet" >> ./burstcoin/conf/nxt.properties
-echo "nxt.dbUsername=burstwallet" >> ./burstcoin/conf/nxt.properties
-echo "nxt.dbPassword=$1" >> ./burstcoin/conf/nxt.properties
-cd ./burstcoin
+echo "nxt.dbUrl=jdbc:mariadb://localhost:3306/burstwallet" >> ./burstcoin/burstcoin-1.3.6cg/conf/nxt.properties
+echo "nxt.dbUsername=burstwallet" >> ./burstcoin/burstcoin-1.3.6cg/conf/nxt.properties
+echo "nxt.dbPassword=$1" >> ./burstcoin/burstcoin-1.3.6cg/conf/nxt.properties
+cd ./burstcoin/burstcoin-1.3.6cg/
 chmod +x burst.sh
 echo "\033[92m\n[+] Starting Wallet, Initialization may take a long time...\033[0m"
 echo "\033[92m[+] Please open a browser and go to http://localhost:8125/index.html\033[0m"
