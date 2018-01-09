@@ -26,6 +26,8 @@ These scripts assume the following:
 5. Follow the green prompts as the script runs.
 6. Once the wallet starts, go to https://localhost:8125/index.html to access your wallet.
 
+![Alt Text](https://media.giphy.com/media/3oFzmkv6II17QkwRSo/giphy.gif)
+
 ### Removing your Wallet <a name="rwallet></a>
 If you've installed your wallet on macOS using this script and decide you no longer wish to run the wallet and would like to uninstall everything. You can do the following.
 1. Open up a terminal window in the `macos_burst` directory.
