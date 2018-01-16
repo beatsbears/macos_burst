@@ -20,9 +20,9 @@ These scripts assume the following:
 ## Setting up your Wallet <a name="wallet"></a>
 1. Download the .zip file for this repo.
 2. Extract the contents.
-3. Open up a terminal window in the `macos_burst` directory.
+3. Open up a terminal window in the `macos_burst-master` directory.
 4. Run the following command with a password of your choice.
-    ```$ ./macos_burst_install.sh <YOUR_PASSWORD>```
+    ```$ sh macos_burst_install.sh <YOUR_PASSWORD>```
 5. Follow the green prompts as the script runs.
 6. Once the wallet starts, go to https://localhost:8125/index.html to access your wallet.
 
@@ -30,9 +30,9 @@ These scripts assume the following:
 
 ### Removing your Wallet <a name="rwallet></a>
 If you've installed your wallet on macOS using this script and decide you no longer wish to run the wallet and would like to uninstall everything. You can do the following.
-1. Open up a terminal window in the `macos_burst` directory.
+1. Open up a terminal window in the `macos_burst-master` directory.
 2. Run the following command.
-    ```$ ./macos_burst_install.sh --uninstall```
+    ```$ sh macos_burst_install.sh --uninstall```
 ## Creating Plots <a name="plot"></a>
 Coming Soon!
 ## Start Mining <a name="mine"></a>
