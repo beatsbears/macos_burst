@@ -31,18 +31,23 @@ These scripts assume the following:
 
 ![Alt Text](https://media.giphy.com/media/3oFzmkv6II17QkwRSo/giphy.gif)
 
-### Removing your Wallet <a name="rwallet"></a>
-If you've installed your wallet on macOS using this script and decide you no longer wish to run the wallet and would like to uninstall everything. You can do the following.
-1. Open up a terminal window in the `macos_burst-master` directory.
-2. Run the following command.
-    ```$ ./macos_burst_install.sh --uninstall```
-
 ### Restart your Wallet <a name="swallet"></a>
 If your wallet has stopped or you need to restart, rather than running the full script again you can do the following.
 1. Open up a terminal window in the `macos_burst` directory.
 2. Run the following command.
     ```$ ./macos_burst_install.sh --restart```
 
+### Stop your Wallet <a name="swallet"></a>
+If you'd like to stop your wallet you can do the following.
+1. Open up a terminal window in the `macos_burst` directory.
+2. Run the following command.
+    ```$ ./macos_burst_install.sh --stop```
+
+### Removing your Wallet <a name="rwallet"></a>
+If you've installed your wallet on macOS using this script and decide you no longer wish to run the wallet and would like to uninstall everything. You can do the following.
+1. Open up a terminal window in the `macos_burst-master` directory.
+2. Run the following command.
+    ```$ ./macos_burst_install.sh --uninstall```
 
 #### 🙌 Thanks 
 I'd like to thank the folks who wrote the underlying software used here.
