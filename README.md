@@ -4,6 +4,7 @@
 2. [Dependencies](#dep)
 3. [Wallet](#wallet)
     1. [Uninstall Wallet](#rwallet)
+    2. [Restarting the Wallet](#swallet)
 4. [Plotting](#plot)
 5. [Mining](#mine)
 
@@ -11,6 +12,8 @@
 The purpose of this set of scripts is to macOS users in getting the Burst Wallet, Plotter, and Mining software running as quickly and easily as possible.
 
 Please don't hesitate to open an issue if you have any difficulty getting things running.
+
+### ✅  Now supporting BRS wallet 2.0.0!
 
 ## Dependencies <a name="dep"> </a>
 These scripts assume the following:
@@ -26,19 +29,24 @@ These scripts assume the following:
 5. Follow the green prompts as the script runs.
 6. Once the wallet starts, go to https://localhost:8125/index.html to access your wallet.
 
-### Removing your Wallet <a name="rwallet></a>
+### Removing your Wallet <a name="rwallet"></a>
 If you've installed your wallet on macOS using this script and decide you no longer wish to run the wallet and would like to uninstall everything. You can do the following.
 1. Open up a terminal window in the `macos_burst` directory.
 2. Run the following command.
     ```$ ./macos_burst_install.sh --uninstall```
-## Creating Plots <a name="plot"></a>
-Coming Soon!
-## Start Mining <a name="mine"></a>
-Coming Soon!
+
+### Restart your Wallet <a name="swallet"></a>
+If your wallet has stopped or you need to restart, rather than running the full script again you can do the following.
+1. Open up a terminal window in the `macos_burst` directory.
+2. Run the following command.
+    ```$ ./macos_burst_install.sh --restart```
 
 #### 🙌 Thanks 
 I'd like to thank the folks who wrote the underlying software used here.
 - Wallet - PoC Consortium - https://github.com/PoC-Consortium/burstcoin
+
+#### 🎉 Burst XBundle for macOS is coming soon!
+I haven't had time to update this project with simple scripts for plotting/mining because I've been spending all my time working on a new bundled application which will allow you to install and run the Burst wallet along with plotting and mining all through a simple, clean user interface. Follow me on twitter [@drownedcoast](https://twitter.com/@drownedcoast) for more news. 
 
 #### 💸 Donations 
 If this was helpful to you please consider a small donation. _BURST-Q944-2MY3-97ZZ-FBWGB_

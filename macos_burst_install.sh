@@ -23,13 +23,49 @@ if [ "$1" == "-h" -o "$1" == "--help" ]; then
 fi
 
 if [ "$1" == "--uninstall" ]; then
+    echo "\033[92m\n[+] Uninstalling Burst Wallet and MariaDB...\033[0m"
+    echo "\033[92m\n[+] Attempting to stop any running processes...\033[0m"
+    kill $(ps aux | grep '/usr/bin/java -cp burst.jar:conf brs.Burst' | awk '{print $2}')
+    kill $(ps aux | grep '/bin/bash ./burst.sh' | awk '{print $2}')
     brew services stop mariadb
     rm -rf /usr/local/var/mysql
     brew uninstall mariadb
     brew cleanup
     rm -rf burstcoin/
+    echo "\033[92m\n[+] Uninstall complete\033[0m"
     exit 0
 fi
+
+if [ "$1" == "--restart" ]; then
+    echo "\033[92m\n[+] Restarting Burst Wallet...\033[0m"
+    # attempt to stop wallet processes
+    echo "\033[92m\n[+] Attempting to stop any running processes...\033[0m"
+    kill $(ps aux | grep '/usr/bin/java -cp burst.jar:conf brs.Burst' | awk '{print $2}')
+    kill $(ps aux | grep '/bin/bash ./burst.sh' | awk '{print $2}')
+    sleep 10
+    # restart
+    echo "\033[92m\n[+] Attempting to to start Wallet.\033[0m"
+    if [ ! -d "./burstcoin" ]; then
+        echo "\033[0;31m\n[!] Wallet does not appear to be installed. Retry command with -h for help.\033[0m"
+        exit 1
+    else
+        echo "\033[92m\n[+] Starting Wallet, Initialization may take a long time...\033[0m"
+        cd ./burstcoin/
+        ./burst.sh  >/dev/null 2>&1 &
+        sleep 10
+        echo "\033[92m[+] Please open a browser and go to http://localhost:8125/index.html\033[0m"
+        echo "\033[92m[+] Transactions and current balances will be unavailable until the db is synchronized, but you can set up your wallet in the meantime.\033[0m"
+    fi
+    exit 0
+fi
+
+if [ "$1" == "--stop" ]; then
+    echo "\033[92m\n[+] Attempting to stop any running processes...\033[0m"
+    kill $(ps aux | grep '/usr/bin/java -cp burst.jar:conf brs.Burst' | awk '{print $2}')
+    kill $(ps aux | grep '/bin/bash ./burst.sh' | awk '{print $2}')
+    sleep 10
+    exit 0
+fi 
 
 # Check if password is provided
 if [ $# -eq 0 ]; then
@@ -105,20 +141,21 @@ brew cask search java
 brew cask install java8
 
 # Install Wallet
-echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet...\033[0m"
+echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.0...\033[0m"
 #TODO only get most recent release
-curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/1.3.6cg/burstcoin-1.3.6cg.zip
+curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.0/burstcoin-2.0.0.zip
 mkdir burstcoin
 unzip burstcoin.zip -d burstcoin
 rm burstcoin.zip
-echo "nxt.dbUrl=jdbc:mariadb://localhost:3306/burstwallet" >> ./burstcoin/burstcoin-1.3.6cg/conf/nxt.properties
-echo "nxt.dbUsername=burstwallet" >> ./burstcoin/burstcoin-1.3.6cg/conf/nxt.properties
-echo "nxt.dbPassword=$1" >> ./burstcoin/burstcoin-1.3.6cg/conf/nxt.properties
-cd ./burstcoin/burstcoin-1.3.6cg/
+echo "DB.Url=jdbc:mariadb://localhost:3306/burstwallet" >> ./burstcoin/conf/brs.properties
+echo "DB.Username=burstwallet" >> ./burstcoin/conf/brs.properties
+echo "DB.Password=$1" >> ./burstcoin/conf/brs.properties
+cd ./burstcoin/
 chmod +x burst.sh
 echo "\033[92m\n[+] Starting Wallet, Initialization may take a long time...\033[0m"
 echo "\033[92m[+] Please open a browser and go to http://localhost:8125/index.html\033[0m"
 echo "\033[92m[+] Transactions and current balances will be unavailable until the db is synchronized, but you can set up your wallet in the meantime.\033[0m"
 sleep 10
 #TODO download blockchain zip and pre-populate wallet
-./burst.sh
+./burst.sh  >/dev/null 2>&1 &
+exit 0
