@@ -6,6 +6,7 @@
     1. [Restarting the Wallet](#swallet)
     2. [Stopping the Wallet](#twallet)
     3. [Uninstall Wallet](#rwallet) 
+    4. [Upgrade Wallet](#uwallet) 
 4. [Plotting](#plot)
 5. [Mining](#mine)
 
@@ -50,7 +51,7 @@ If you've installed your wallet on macOS using this script and decide you no lon
 2. Run the following command.
     ```$ ./macos_burst_install.sh --uninstall```
 
-### Migrate from an old install of macos_burst
+### Migrate from an old install of macos_burst <a name="uwallet"></a>
 If you installed a previous version of the Burst wallet using this software, you can use this software to update to the latest version. To do so, follow these steps.
 1. Download the .zip file for this repo.
 2. Extract the contents.
