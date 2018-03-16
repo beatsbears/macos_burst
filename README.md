@@ -50,6 +50,16 @@ If you've installed your wallet on macOS using this script and decide you no lon
 2. Run the following command.
     ```$ ./macos_burst_install.sh --uninstall```
 
+### Migrate from an old install of macos_burst
+If you installed a previous version of the Burst wallet using this software, you can use this software to update to the latest version. To do so, follow these steps.
+1. Download the .zip file for this repo.
+2. Extract the contents.
+3. Open up a terminal window in the `macos_burst-master` directory.
+4. Find the path of your previous install. You can try running this command to find it 
+    ```mdfind burstcoin-1.3.6cg | head -n 1 | cd ../../ | pwd```
+5. Run the following command to upgrade to the new wallet version
+    ```$ ./macos_burst_install.sh --upgrade {path from step 4}```
+
 #### 🙌 Thanks 
 I'd like to thank the folks who wrote the underlying software used here.
 - Wallet - PoC Consortium - https://github.com/PoC-Consortium/burstcoin

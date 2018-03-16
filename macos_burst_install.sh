@@ -19,6 +19,10 @@ if [ "$1" == "-h" -o "$1" == "--help" ]; then
     echo "\n[+] Provide a default password for the Database. This will be used by the Burstcoin process to access your MariaDB instance"
     echo "    Usage: ./macos_burst_install.sh MySecretPassword"
     echo "    To uninstall: ./macos_burst_install.sh --uninstall"
+    echo "    To restart: ./macos_burst_install.sh --restart"
+    echo "    To stop: ./macos_burst_install.sh --stop"
+    echo "    To upgrade: ./macos_burst_install.sh --upgrade 'path of old install macos_burst'"
+    echo "        ex.  ./macos_burst_install.sh --upgrade ~/Downloads/macos_burst-master"
     exit 0
 fi
 
@@ -65,6 +69,50 @@ if [ "$1" == "--stop" ]; then
     kill $(ps aux | grep '/bin/bash ./burst.sh' | awk '{print $2}')
     sleep 10
     exit 0
+fi 
+
+if [ "$1" == "--upgrade" ]; then
+    if [ $# == 1 ]; then
+        echo "\033[0;31m\n[!] No Path provided, Exiting...\033[0m"
+        echo "\033[0;31m  Use the -h option for help\033[0m"
+        exit 1
+    fi
+    echo "\033[92m\n[+] Attempting upgrade from a previous burst wallet to the latest version...\033[0m"
+    echo "\033[92m\n[+] Attempting to stop any running processes...\033[0m"
+    kill $(ps aux | grep '/usr/bin/java -cp burst.jar:conf brs.Burst' | awk '{print $2}')
+    kill $(ps aux | grep '/usr/bin/java -cp burst.jar:conf nxt.Nxt' | awk '{print $2}')
+    kill $(ps aux | grep '/bin/bash ./burst.sh' | awk '{print $2}')
+    sleep 10
+    echo "\033[92m\n[+] checking in old install: $2"
+    if [ ! -d "$2/burstcoin" ]; then
+        echo "\033[0;31m\n[!] Could not find existing wallet in provided path, Exiting...\033[0m"
+        ls -la $2
+        exit 1
+    else
+        # get old install details
+        echo "\033[92m\n[+] Old install found!\033[0m"
+        PASSWORD=$(cat "/Users/andrewscott/Dev/old_install/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbPassword | cut -d "=" -f2)
+        USERNAME=$(cat "/Users/andrewscott/Dev/old_install/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUsername | cut -d "=" -f2)
+        CONNECTION=$(cat "/Users/andrewscott/Dev/old_install/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUrl | cut -d "=" -f2)
+        # Install Wallet
+        echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.0...\033[0m"
+        #TODO only get most recent release
+        curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.0/burstcoin-2.0.0.zip
+        mkdir burstcoin
+        unzip burstcoin.zip -d burstcoin
+        rm burstcoin.zip
+        echo "DB.Url=$CONNECTION" >> ./burstcoin/conf/brs.properties
+        echo "DB.Username=$USERNAME" >> ./burstcoin/conf/brs.properties
+        echo "DB.Password=$PASSWORD" >> ./burstcoin/conf/brs.properties
+        cd ./burstcoin/
+        chmod +x burst.sh
+        echo "\033[92m\n[+] Starting Wallet, Initialization may take a long time...\033[0m"
+        echo "\033[92m[+] Please open a browser and go to http://localhost:8125/index.html\033[0m"
+        echo "\033[92m[+] Transactions and current balances will be unavailable until the db is synchronized, but you can set up your wallet in the meantime.\033[0m"
+        sleep 10
+        ./burst.sh  >/dev/null 2>&1 &
+        exit 0
+    fi
 fi 
 
 # Check if password is provided
@@ -156,6 +204,5 @@ echo "\033[92m\n[+] Starting Wallet, Initialization may take a long time...\033[
 echo "\033[92m[+] Please open a browser and go to http://localhost:8125/index.html\033[0m"
 echo "\033[92m[+] Transactions and current balances will be unavailable until the db is synchronized, but you can set up your wallet in the meantime.\033[0m"
 sleep 10
-#TODO download blockchain zip and pre-populate wallet
 ./burst.sh  >/dev/null 2>&1 &
 exit 0
