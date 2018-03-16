@@ -3,8 +3,9 @@
 1. [Purpose](#purpose)
 2. [Dependencies](#dep)
 3. [Wallet](#wallet)
-    1. [Uninstall Wallet](#rwallet)
-    2. [Restarting the Wallet](#swallet)
+    1. [Restarting the Wallet](#swallet)
+    2. [Stopping the Wallet](#twallet)
+    3. [Uninstall Wallet](#rwallet) 
 4. [Plotting](#plot)
 5. [Mining](#mine)
 
@@ -37,7 +38,7 @@ If your wallet has stopped or you need to restart, rather than running the full 
 2. Run the following command.
     ```$ ./macos_burst_install.sh --restart```
 
-### Stop your Wallet <a name="swallet"></a>
+### Stop your Wallet <a name="twallet"></a>
 If you'd like to stop your wallet you can do the following.
 1. Open up a terminal window in the `macos_burst` directory.
 2. Run the following command.
