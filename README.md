@@ -7,8 +7,6 @@
     2. [Stopping the Wallet](#twallet)
     3. [Uninstall Wallet](#rwallet) 
     4. [Upgrade Wallet](#uwallet) 
-4. [Plotting](#plot)
-5. [Mining](#mine)
 
 ## Purpose <a name="purpose"> </a>
 The purpose of this set of scripts is to macOS users in getting the Burst Wallet, Plotter, and Mining software running as quickly and easily as possible.
