@@ -91,9 +91,9 @@ if [ "$1" == "--upgrade" ]; then
     else
         # get old install details
         echo "\033[92m\n[+] Old install found!\033[0m"
-        PASSWORD=$(cat "/Users/andrewscott/Dev/old_install/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbPassword | cut -d "=" -f2)
-        USERNAME=$(cat "/Users/andrewscott/Dev/old_install/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUsername | cut -d "=" -f2)
-        CONNECTION=$(cat "/Users/andrewscott/Dev/old_install/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUrl | cut -d "=" -f2)
+        PASSWORD=$(cat "$2/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbPassword | cut -d "=" -f2)
+        USERNAME=$(cat "$2/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUsername | cut -d "=" -f2)
+        CONNECTION=$(cat "$2/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUrl | cut -d "=" -f2)
         # Install Wallet
         echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.0...\033[0m"
         #TODO only get most recent release
