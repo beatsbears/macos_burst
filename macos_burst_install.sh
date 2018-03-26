@@ -95,9 +95,9 @@ if [ "$1" == "--upgrade" ]; then
         USERNAME=$(cat "/Users/andrewscott/Dev/old_install/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUsername | cut -d "=" -f2)
         CONNECTION=$(cat "/Users/andrewscott/Dev/old_install/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUrl | cut -d "=" -f2)
         # Install Wallet
-        echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.0...\033[0m"
+        echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.1...\033[0m"
         #TODO only get most recent release
-        curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.0/burstcoin-2.0.0.zip
+        curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.1/burstcoin-2.0.1.zip
         mkdir burstcoin
         unzip burstcoin.zip -d burstcoin
         rm burstcoin.zip
@@ -175,7 +175,9 @@ END
 echo "\033[92m\n[+] Creating burstwallet db...\033[0m"
 mysql -u root -p$1 -h localhost << END
 
-CREATE DATABASE burstwallet; 
+CREATE DATABASE burstwallet
+    CHARACTER SET = 'utf8mb4'
+    COLLATE = 'utf8mb4_unicode_ci';
 CREATE USER 'burstwallet'@'localhost' IDENTIFIED BY '$1'; 
 GRANT ALL PRIVILEGES ON burstwallet.* TO 'burstwallet'@'localhost';
 
@@ -189,9 +191,9 @@ brew cask search java
 brew cask install java8
 
 # Install Wallet
-echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.0...\033[0m"
+echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.1...\033[0m"
 #TODO only get most recent release
-curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.0/burstcoin-2.0.0.zip
+curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.1/burstcoin-2.0.1.zip
 mkdir burstcoin
 unzip burstcoin.zip -d burstcoin
 rm burstcoin.zip
