@@ -13,7 +13,7 @@ The purpose of this set of scripts is to macOS users in getting the Burst Wallet
 
 Please don't hesitate to open an issue if you have any difficulty getting things running.
 
-### ✅  Now supporting BRS wallet 2.0.1!
+### ✅  Now supporting BRS wallet 2.0.2!
 
 ## Dependencies <a name="dep"> </a>
 These scripts assume the following:
@@ -58,7 +58,7 @@ If you installed a previous version of the Burst wallet using this software, you
     | Version | Command |
     | --- | --- |
     | 1.3.6cg | ```mdfind burstcoin-1.3.6cg | head -n 1 | cd ../../ | pwd | ``` |
-    | 2.0.0 or above | ```find ~ -wholename */macos_burst/burstcoin/conf/* -print -quit | head -n 1 | cd ../../ | pwd``` |
+    | 2.0.0 or above | ```find ~ -wholename */burstcoin/conf/* -print -quit | head -n 1 | cd ../../ | pwd``` |
 5. Run the following command to upgrade to the new wallet version
     ```$ ./macos_burst_install.sh --upgrade {path from step 4}```
 
