@@ -55,10 +55,11 @@ If you installed a previous version of the Burst wallet using this software, you
 2. Extract the contents.
 3. Open up a terminal window in the `macos_burst-master` directory.
 4. Find the path of your previous install. You can try running one of these commands to find the path if you don't know it:
-    | Version | Command |
-    | --- | --- |
-    | 1.3.6cg | ```mdfind burstcoin-1.3.6cg | head -n 1 | cd ../../ | pwd | ``` |
-    | 2.0.0 or above | ```find ~ -wholename */burstcoin/conf/* -print -quit | head -n 1 | cd ../../ | pwd``` |
+
+    **1.3.6cg** - ```mdfind burstcoin-1.3.6cg | head -n 1 | cd ../../ | pwd```
+
+    **2.0.0 or above** - ```find ~ -wholename */burstcoin/conf/* -print -quit | head -n 1 | cd ../../ | pwd```
+
 5. Run the following command to upgrade to the new wallet version
     ```$ ./macos_burst_install.sh --upgrade {path from step 4}```
 
