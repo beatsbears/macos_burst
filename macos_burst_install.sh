@@ -84,36 +84,30 @@ if [ "$1" == "--upgrade" ]; then
     kill $(ps aux | grep '/bin/bash ./burst.sh' | awk '{print $2}')
     sleep 10
     echo "\033[92m\n[+] checking in old install: $2"
-    if [ ! -d "$2/burstcoin" ]; then
-        echo "\033[0;31m\n[!] Could not find existing wallet in provided path, Exiting...\033[0m"
-        ls -la $2
-        exit 1
-    else
-        # get old install details from 1.3.6
-        echo "\033[92m\n[+] Old install found (1.3.6cg)!\033[0m"
-        PASSWORD=$(cat "$2/conf/nxt.properties" | grep nxt.dbPassword | cut -d "=" -f2)
-        USERNAME=$(cat "$2/conf/nxt.properties" | grep nxt.dbUsername | cut -d "=" -f2)
-        CONNECTION=$(cat "$2/conf/nxt.properties" | grep nxt.dbUrl | cut -d "=" -f2)
-        # Install Wallet
-        echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.2...\033[0m"
-        #TODO only get most recent release
-        curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.2/burstcoin-2.0.2.zip
-        mkdir burstcoin
-        unzip burstcoin.zip -d burstcoin
-        rm burstcoin.zip
-        echo "" > ./burstcoin/conf/brs.properties
-        echo "DB.Url=$CONNECTION" >> ./burstcoin/conf/brs.properties
-        echo "DB.Username=$USERNAME" >> ./burstcoin/conf/brs.properties
-        echo "DB.Password=$PASSWORD" >> ./burstcoin/conf/brs.properties
-        cd ./burstcoin/
-        chmod +x burst.sh
-        echo "\033[92m\n[+] Starting Wallet, Initialization may take a long time...\033[0m"
-        echo "\033[92m[+] Please open a browser and go to http://localhost:8125/index.html\033[0m"
-        echo "\033[92m[+] Transactions and current balances will be unavailable until the db is synchronized, but you can set up your wallet in the meantime.\033[0m"
-        sleep 10
-        ./burst.sh  >/dev/null 2>&1 &
-        exit 0
-    fi
+    # get old install details from 1.3.6
+    echo "\033[92m\n[+] Old install found (1.3.6cg)!\033[0m"
+    PASSWORD=$(cat "$2/conf/nxt.properties" | grep nxt.dbPassword | cut -d "=" -f2)
+    USERNAME=$(cat "$2/conf/nxt.properties" | grep nxt.dbUsername | cut -d "=" -f2)
+    CONNECTION=$(cat "$2/conf/nxt.properties" | grep nxt.dbUrl | cut -d "=" -f2)
+    # Install Wallet
+    echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.2...\033[0m"
+    #TODO only get most recent release
+    curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.2/burstcoin-2.0.2.zip
+    mkdir burstcoin
+    unzip burstcoin.zip -d burstcoin
+    rm burstcoin.zip
+    echo "" > ./burstcoin/conf/brs.properties
+    echo "DB.Url=$CONNECTION" >> ./burstcoin/conf/brs.properties
+    echo "DB.Username=$USERNAME" >> ./burstcoin/conf/brs.properties
+    echo "DB.Password=$PASSWORD" >> ./burstcoin/conf/brs.properties
+    cd ./burstcoin/
+    chmod +x burst.sh
+    echo "\033[92m\n[+] Starting Wallet, Initialization may take a long time...\033[0m"
+    echo "\033[92m[+] Please open a browser and go to http://localhost:8125/index.html\033[0m"
+    echo "\033[92m[+] Transactions and current balances will be unavailable until the db is synchronized, but you can set up your wallet in the meantime.\033[0m"
+    sleep 10
+    ./burst.sh  >/dev/null 2>&1 &
+    exit 0
 fi 
 
 # Check if password is provided
