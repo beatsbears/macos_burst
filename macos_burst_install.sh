@@ -89,19 +89,11 @@ if [ "$1" == "--upgrade" ]; then
         ls -la $2
         exit 1
     else
-        if [ -d "$2/burstcoin/burstcoin-1.3.6cg" ]; then
-            # get old install details from 1.3.6
-            echo "\033[92m\n[+] Old install found (1.3.6cg)!\033[0m"
-            PASSWORD=$(cat "$2/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbPassword | cut -d "=" -f2)
-            USERNAME=$(cat "$2/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUsername | cut -d "=" -f2)
-            CONNECTION=$(cat "$2/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUrl | cut -d "=" -f2)
-        else
-            # get old install details from 2.*
-            echo "\033[92m\n[+] Old install found (2.0.0+)!\033[0m"
-            PASSWORD=$(cat "$2/burstcoin/conf/brs.properties" | grep DB.Password | cut -d "=" -f2)
-            USERNAME=$(cat "$2/burstcoin/conf/brs.properties" | grep DB.Username | cut -d "=" -f2)
-            CONNECTION=$(cat "$2/burstcoin/conf/brs.properties" | grep DB.Url | cut -d "=" -f2)
-        fi
+        # get old install details from 1.3.6
+        echo "\033[92m\n[+] Old install found (1.3.6cg)!\033[0m"
+        PASSWORD=$(cat "$2/conf/nxt.properties" | grep nxt.dbPassword | cut -d "=" -f2)
+        USERNAME=$(cat "$2/conf/nxt.properties" | grep nxt.dbUsername | cut -d "=" -f2)
+        CONNECTION=$(cat "$2/conf/nxt.properties" | grep nxt.dbUrl | cut -d "=" -f2)
         # Install Wallet
         echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.2...\033[0m"
         #TODO only get most recent release
