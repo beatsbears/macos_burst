@@ -54,8 +54,11 @@ If you installed a previous version of the Burst wallet using this software, you
 1. Download the .zip file for this repo.
 2. Extract the contents.
 3. Open up a terminal window in the `macos_burst-master` directory.
-4. Find the path of your previous install. You can try running this command to find it 
-    ```mdfind burstcoin-1.3.6cg | head -n 1 | cd ../../ | pwd```
+4. Find the path of your previous install. You can try running one of these commands to find the path if you don't know it:
+    | Version | Command |
+    | --- | --- |
+    | 1.3.6cg | ```mdfind burstcoin-1.3.6cg | head -n 1 | cd ../../ | pwd | ``` |
+    | 2.0.0 or above | ```find ~ -wholename */macos_burst/burstcoin/conf/* -print -quit | head -n 1 | cd ../../ | pwd``` |
 5. Run the following command to upgrade to the new wallet version
     ```$ ./macos_burst_install.sh --upgrade {path from step 4}```
 
@@ -67,4 +70,6 @@ I'd like to thank the folks who wrote the underlying software used here.
 I haven't had time to update this project with simple scripts for plotting/mining because I've been spending all my time working on a new bundled application which will allow you to install and run the Burst wallet along with plotting and mining all through a simple, clean user interface. Follow me on twitter [@drownedcoast](https://twitter.com/@drownedcoast) for more news. 
 
 #### 💸 Donations 
-If this was helpful to you please consider a small donation. _BURST-Q944-2MY3-97ZZ-FBWGB_
+If this was helpful to you please consider a small donation. 
+- Andrew Scott (drownedcoast) - BURST-Q944–2MY3–97ZZ-FBWGB
+<img align="right" width="298" height="120" title="Powered By Burst" src="https://raw.githubusercontent.com/PoC-Consortium/Marketing_Resources/master/Powered_By_Burst/PBB4.png"/>
