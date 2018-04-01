@@ -13,7 +13,7 @@ The purpose of this set of scripts is to macOS users in getting the Burst Wallet
 
 Please don't hesitate to open an issue if you have any difficulty getting things running.
 
-### ✅  Now supporting BRS wallet 2.0.2!
+### ✅  Now supporting BRS wallet 2.0.3!
 
 ## Dependencies <a name="dep"> </a>
 These scripts assume the following:

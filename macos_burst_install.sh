@@ -92,20 +92,27 @@ if [ "$1" == "--upgrade" ]; then
         if [ -d "$2/burstcoin/burstcoin-1.3.6cg" ]; then
             # get old install details from 1.3.6
             echo "\033[92m\n[+] Old install found (1.3.6cg)!\033[0m"
+            CONFIG_FILE="$2/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties"
             PASSWORD=$(cat "$2/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbPassword | cut -d "=" -f2)
             USERNAME=$(cat "$2/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUsername | cut -d "=" -f2)
             CONNECTION=$(cat "$2/burstcoin/burstcoin-1.3.6cg/conf/nxt.properties" | grep nxt.dbUrl | cut -d "=" -f2)
         else
             # get old install details from 2.*
             echo "\033[92m\n[+] Old install found (2.0.0+)!\033[0m"
+            CONFIG_FILE="$2/burstcoin/conf/brs.properties"
             PASSWORD=$(cat "$2/burstcoin/conf/brs.properties" | grep DB.Password | cut -d "=" -f2)
             USERNAME=$(cat "$2/burstcoin/conf/brs.properties" | grep DB.Username | cut -d "=" -f2)
             CONNECTION=$(cat "$2/burstcoin/conf/brs.properties" | grep DB.Url | cut -d "=" -f2)
         fi
+        if [ -z "${PASSWORD}" ] || [ -z "${USERNAME}" ] || [ -z "${CONNECTION}" ]; then
+            echo "\033[0;31m\n[!] Could not find configuration details in $CONFIG_FILE...\033[0m"
+            cat $CONFIG_FILE
+            exit 1
+        fi 
         # Install Wallet
-        echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.2...\033[0m"
+        echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.3...\033[0m"
         #TODO only get most recent release
-        curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.2/burstcoin-2.0.2.zip
+        curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.3/burstcoin-2.0.3.zip
         mkdir burstcoin
         unzip burstcoin.zip -d burstcoin
         rm burstcoin.zip
@@ -200,9 +207,9 @@ brew cask search java
 brew cask install java8
 
 # Install Wallet
-echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.2...\033[0m"
+echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.3...\033[0m"
 #TODO only get most recent release
-curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.2/burstcoin-2.0.2.zip
+curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.3/burstcoin-2.0.3.zip
 mkdir burstcoin
 unzip burstcoin.zip -d burstcoin
 rm burstcoin.zip
