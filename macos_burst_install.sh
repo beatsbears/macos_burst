@@ -110,9 +110,9 @@ if [ "$1" == "--upgrade" ]; then
             exit 1
         fi 
         # Install Wallet
-        echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.3...\033[0m"
+        echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.2.1...\033[0m"
         #TODO only get most recent release
-        curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.3/burstcoin-2.0.3.zip
+        curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.2.1/burstcoin-2.2.1.zip
         mkdir burstcoin
         unzip burstcoin.zip -d burstcoin
         rm burstcoin.zip
@@ -126,7 +126,7 @@ if [ "$1" == "--upgrade" ]; then
         echo "\033[92m[+] Please open a browser and go to http://localhost:8125/index.html\033[0m"
         echo "\033[92m[+] Transactions and current balances will be unavailable until the db is synchronized, but you can set up your wallet in the meantime.\033[0m"
         sleep 10
-        ./burst.sh  >/dev/null 2>&1 &
+        # ./burst.sh  >/dev/null 2>&1 &
         exit 0
     fi
 fi 
@@ -207,9 +207,9 @@ brew cask search java
 brew cask install java8
 
 # Install Wallet
-echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.0.3...\033[0m"
+echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.2.1..\033[0m"
 #TODO only get most recent release
-curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.0.3/burstcoin-2.0.3.zip
+curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.2.1/burstcoin-2.2.1.zip
 mkdir burstcoin
 unzip burstcoin.zip -d burstcoin
 rm burstcoin.zip
