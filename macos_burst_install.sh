@@ -77,7 +77,11 @@ if [ "$1" == "--upgrade" ]; then
         echo "\033[0;31m  Use the -h option for help\033[0m"
         exit 1
     fi
-    echo "\033[92m\n[+] Attempting upgrade from a previous version of the Burst Wallet to the latest version...\033[0m"
+
+    # Get latest wallet version 
+    LATEST_VER=$(curl --silent "https://api.github.com/repos/PoC-Consortium/burstcoin/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+
+    echo "\033[92m\n[+] Attempting upgrade from a previous version of the Burst Wallet to the latest version...$LATEST_VER\033[0m"
     echo "\033[92m\n[+] Attempting to stop any running processes...\033[0m"
     kill $(ps aux | grep '/usr/bin/java -cp burst.jar:conf brs.Burst' | awk '{print $2}')
     kill $(ps aux | grep '/usr/bin/java -cp burst.jar:conf nxt.Nxt' | awk '{print $2}')
@@ -110,9 +114,10 @@ if [ "$1" == "--upgrade" ]; then
             exit 1
         fi 
         # Install Wallet
-        echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.2.1...\033[0m"
+        echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet $LATEST_VER...\033[0m"
         #TODO only get most recent release
-        curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.2.1/burstcoin-2.2.1.zip
+        URL="https://github.com/PoC-Consortium/burstcoin/releases/download/$LATEST_VER/burstcoin-$LATEST_VER.zip"
+        curl -o ./burstcoin.zip -k -L $URL
         mkdir burstcoin
         unzip burstcoin.zip -d burstcoin
         rm burstcoin.zip
@@ -179,26 +184,39 @@ brew services start mariadb
 sleep 5 
 
 # Create Database and reset password
-echo "\033[92m\n[+] Resetting Root password for MariaDB...\033[0m"
-echo "\033[92m    Press ENTER when prompted.\033[0m"
-mysql -u root -p -h localhost << END
+# Check that mariadb root password is not set
+if mysql -u root -h localhost -e "\q" ; then
+    echo "\033[92m\n[+] Resetting Root password for MariaDB...\033[0m"
+    echo "\033[92m    Press ENTER when prompted.\033[0m"
+    mysql -u root -h localhost << END
 
-USE mysql;
-UPDATE user SET password=PASSWORD('$1') WHERE User='root' AND Host = 'localhost';
-FLUSH PRIVILEGES;
-
-END
-echo "\033[92m\n[+] Creating burstwallet db...\033[0m"
-mysql -u root -p$1 -h localhost << END
-
-CREATE DATABASE burstwallet
-    CHARACTER SET = 'utf8mb4'
-    COLLATE = 'utf8mb4_unicode_ci';
-CREATE USER 'burstwallet'@'localhost' IDENTIFIED BY '$1'; 
-GRANT ALL PRIVILEGES ON burstwallet.* TO 'burstwallet'@'localhost';
+    USE mysql;
+    UPDATE user SET password=PASSWORD('$1') WHERE User='root' AND Host = 'localhost';
+    FLUSH PRIVILEGES;
 
 END
-echo "\033[92m[+] Database created successfully...\033[0m"
+    echo "\033[92m\n[+] Creating burstwallet db...\033[0m"
+    mysql -u root -p$1 -h localhost << END
+
+    CREATE DATABASE burstwallet
+        CHARACTER SET = 'utf8mb4'
+        COLLATE = 'utf8mb4_unicode_ci';
+    CREATE USER 'burstwallet'@'localhost' IDENTIFIED BY '$1'; 
+    GRANT ALL PRIVILEGES ON burstwallet.* TO 'burstwallet'@'localhost';
+
+END
+
+    # Check that database was created successfully
+    if mysql -u burstwallet -p$1 -h localhost -e "\q" ; then
+        echo "\033[92m[+] Database created successfully...\033[0m"
+    else
+        echo "\033[0;31m\n[!] Database creation failed...\033[0m"
+        exit 1
+    fi
+else
+    echo "\033[0;31m\n[!] MariaDB root password is not known. \033[0m"
+    exit 1
+fi
 
 # Install Java 8
 echo "\033[92m\n[+] Installing Java 8 JDK...\033[0m"
@@ -206,10 +224,14 @@ brew tap caskroom/versions
 brew cask search java
 brew cask install java8
 
+# Get latest wallet version 
+LATEST_VER=$(curl --silent "https://api.github.com/repos/PoC-Consortium/burstcoin/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+
 # Install Wallet
-echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet 2.2.1..\033[0m"
+echo "\033[92m\n[+] Installing PoC-Consortium Burst Wallet $LATEST_VER...\033[0m"
 #TODO only get most recent release
-curl -o ./burstcoin.zip -k -L https://github.com/PoC-Consortium/burstcoin/releases/download/2.2.1/burstcoin-2.2.1.zip
+URL="https://github.com/PoC-Consortium/burstcoin/releases/download/$LATEST_VER/burstcoin-$LATEST_VER.zip"
+curl -o ./burstcoin.zip -k -L $URL
 mkdir burstcoin
 unzip burstcoin.zip -d burstcoin
 rm burstcoin.zip
